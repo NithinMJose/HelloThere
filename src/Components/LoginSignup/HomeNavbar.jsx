@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './HomeNavbar.css'; // Make sure to import the updated CSS file
 import { NavLink, Link } from 'react-router-dom';
-import { Nav } from 'react-bootstrap';
 
 function HomeNavbar() {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -24,7 +23,6 @@ function HomeNavbar() {
           <li><a href="/TeamHistoryGuestView" className="nav-linkss">Team History</a></li>
           <li><a href="/GalleryGuestView" className="nav-linkss">Gallery</a></li>
           <li><a href="/Signin" classname="nav-linkss">Login</a></li>
-          <Nav.Link as={Link} to="/Signup" className="nav-linkss">Register Account</Nav.Link>
           <li><a href="/Signup" className="nav-link2">Register Account</a></li>
         </ul>
         <button onClick={handleToggleMobileMenu} className="navbar-toggle">
