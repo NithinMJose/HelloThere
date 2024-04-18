@@ -18,6 +18,7 @@ import axios from 'axios';
 import Footer from '../LoginSignup/Footer';
 import TeamSidebar from '../sidebar/TeamSidebar';
 import TeamNavbar from '../LoginSignup/Team/TeamNavbar';
+import { BASE_URL } from '../../config';
 
 const TeamViewProfile = () => {
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ const TeamViewProfile = () => {
         const tokenPayload = jwt_decode(token);
         const userName = tokenPayload.userName;
 
-        const response = await axios.get(`https://localhost:7092/api/Team/GetTeamByUserName?userName=${userName}`);
+        const response = await axios.get(`${BASE_URL}/api/Team/GetTeamByUserName?userName=${userName}`);
         setTeamData(response.data);
         setEditedData({ ...response.data });
       } catch (error) {
@@ -146,7 +147,7 @@ const TeamViewProfile = () => {
     }
 
     try {
-      const response = await axios.put(`https://localhost:7092/api/Team/UpdateTeam?teamId=${teamId}`, formData, {
+      const response = await axios.put(`${BASE_URL}/api/Team/UpdateTeam?teamId=${teamId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -200,7 +201,7 @@ const TeamViewProfile = () => {
             <TableCell className="data">
               <div style={{ width: '100px', height: '100px', overflow: 'hidden' }}>
                 <img
-                  src={`https://localhost:7092/images/${teamData.imagePath}`}
+                  src={`${BASE_URL}/images/${teamData.imagePath}`}
                   alt="Team Logo"
                   style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
                 />

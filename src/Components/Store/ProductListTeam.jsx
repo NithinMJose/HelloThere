@@ -8,6 +8,7 @@ import Footer from '../LoginSignup/Footer';
 import jwt_decode from 'jwt-decode';
 import TeamSidebar from '../sidebar/TeamSidebar';
 import TeamNavbar from '../LoginSignup/Team/TeamNavbar';
+import { BASE_URL } from '../../config';
 
 const ProductListTeam = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const ProductListTeam = () => {
       const teamId = tokenPayload.teamId;
   
       axios
-        .get(`https://localhost:7092/api/Product/GetProductsByTeamId/${teamId}`, {
+        .get(`${BASE_URL}/api/Product/GetProductsByTeamId/${teamId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -50,7 +51,7 @@ const ProductListTeam = () => {
         });
   
       axios
-        .get(`https://localhost:7092/api/ProductCategory/GetAllProductCategories`)
+        .get(`${BASE_URL}/api/ProductCategory/GetAllProductCategories`)
         .then((response) => {
           console.log('Category data:', response.data);
           setCategoryData(response.data);

@@ -3,6 +3,7 @@ import './TopicListUser.css'; // Include your CSS file for styling
 import Footer from '../LoginSignup/Footer';
 import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../LoginSignup/AdminNavbar';
+import { BASE_URL } from '../../config';
 
 const TopicListAdminEditView = () => {
   const [topicList, setTopicList] = useState([]);
@@ -11,7 +12,7 @@ const TopicListAdminEditView = () => {
   useEffect(() => {
     const fetchTopics = async () => {
       try {
-        const response = await fetch('https://localhost:7092/api/Topic/GetAllTopics');
+        const response = await fetch(`${BASE_URL}/api/Topic/GetAllTopics`);
         const data = await response.json();
         setTopicList(data);
       } catch (error) {

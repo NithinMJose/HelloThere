@@ -6,6 +6,7 @@ import Footer from '../LoginSignup/Footer';
 import AdminNavbar from '../LoginSignup/AdminNavbar';
 import { useNavigate } from 'react-router-dom';
 import './AddGallery.css';
+import { BASE_URL } from '../../config';
 
 const AddGallery = () => {
   const [caption, setCaption] = useState('');
@@ -54,7 +55,7 @@ const AddGallery = () => {
         formData.append('caption', caption);
         formData.append('imageFile', imageFile);
 
-        const response = await fetch('https://localhost:7092/api/Gallery/UploadImage', {
+        const response = await fetch(`${BASE_URL}/api/Gallery/UploadImage`, {
           method: 'POST',
           body: formData,
         });

@@ -4,6 +4,7 @@ import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, Tab
 import AdminNavbar from '../LoginSignup/AdminNavbar';
 import Footer from '../LoginSignup/Footer';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../config';
 
 const TeamHistoryList = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const TeamHistoryList = () => {
 
   useEffect(() => {
     axios
-      .get('https://localhost:7092/api/TeamHistory/GetAllTeamHistories')
+      .get(`${BASE_URL}/api/TeamHistory/GetAllTeamHistories`)
       .then((response) => {
         setTeamHistories(response.data);
       })

@@ -10,6 +10,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import TextField from '@mui/material/TextField';
+import { BASE_URL } from '../../../config';
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -30,7 +31,7 @@ const ProductDetails = () => {
 
   const fetchUserDetails = async () => {
     try {
-      const response = await fetch(`https://localhost:7092/api/User/GetUserDetailsFromUserId?userId=${userId}`);
+      const response = await fetch(`${BASE_URL}/api/User/GetUserDetailsFromUserId?userId=${userId}`);
       const data = await response.json();
       setUserDetails(data);
       console.log("User DetailsZZZZZZZZ :", data);
@@ -47,7 +48,7 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`https://localhost:7092/api/Product/GetProductByUniqueName?uniqueName=${productId}`);
+        const response = await fetch(`${BASE_URL}/api/Product/GetProductByUniqueName?uniqueName=${productId}`);
         const data = await response.json();
         const productId2 = data.productId;
         setProduct(data);
@@ -67,7 +68,7 @@ const ProductDetails = () => {
     const fetchTeam = async () => {
       if (product) {
         try {
-          const response = await fetch(`https://localhost:7092/api/Team/GetTeamById?id=${product.teamId}`);
+          const response = await fetch(`${BASE_URL}/api/Team/GetTeamById?id=${product.teamId}`);
           const data = await response.json();
           setTeam(data);
         } catch (error) {
@@ -110,7 +111,7 @@ const ProductDetails = () => {
       size: 'medium'
     };
     try {
-      const response = await fetch('https://localhost:7092/api/CartItem/AddToCart', {
+      const response = await fetch(`${BASE_URL}/api/CartItem/AddToCart`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -189,13 +190,13 @@ const ProductDetails = () => {
           <div className="product-details">
             <div className="product-images-container">
               <div className="product-images">
-                <img src={`https://localhost:7092/images/${product[`imagePath${currentImageIndex + 1}`]}`} alt={product.productName} className="main-image" />
+                <img src={`${BASE_URL}/images/${product[`imagePath${currentImageIndex + 1}`]}`} alt={product.productName} className="main-image" />
               </div>
               <div className="thumbnail-images">
                 {Array.from({ length: imageCount }, (_, i) => i + 1).map(index => (
                   <img
                     key={index}
-                    src={`https://localhost:7092/images/${product[`imagePath${index}`]}`}
+                    src={`${BASE_URL}/images/${product[`imagePath${index}`]}`}
                     alt={product.productName}
                     className={`thumbnail ${index - 1 === currentImageIndex ? 'active' : ''}`}
                     onClick={() => setCurrentImageIndex(index - 1)}
@@ -223,7 +224,7 @@ const ProductDetails = () => {
                       <hr />
                       <p className="team-genuine">Genuine product from:</p>
                       <div className="team-info">
-                        {team.imagePath && <img src={`https://localhost:7092/images/${team.imagePath}`} alt={team.name} className="teamImage" />}
+                        {team.imagePath && <img src={`${BASE_URL}/images/${team.imagePath}`} alt={team.name} className="teamImage" />}
                         <p className="team-name">{team.name}</p>
                       </div>
                     </div>

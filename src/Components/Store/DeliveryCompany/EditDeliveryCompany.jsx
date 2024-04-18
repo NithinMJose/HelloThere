@@ -4,6 +4,7 @@ import './EditDeliveryCompany.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../../config';
 
 const EditDeliveryCompany = () => {
     const { uniqueName } = useParams();
@@ -21,7 +22,7 @@ const EditDeliveryCompany = () => {
         console.log('uniqueName:', uniqueName);
         const fetchDeliveryCompany = async () => {
             try {
-                const response = await fetch(`https://localhost:7092/api/DeliveryCompany/GetDeliveryCompanyViaUniqueName?uniqueName=${uniqueName}`);
+                const response = await fetch(`${BASE_URL}/api/DeliveryCompany/GetDeliveryCompanyViaUniqueName?uniqueName=${uniqueName}`);
                 if (response.ok) {
                     const data = await response.json();
                     setDeliveryCompany(data);
@@ -69,13 +70,13 @@ const EditDeliveryCompany = () => {
             if (formData.imageFile) {
                 formDataToSend.append('imageFile', formData.imageFile);
             } else {
-                const blob = await fetch(`https://localhost:7092/images/${deliveryCompany.imagePath}`).then(res => res.blob());
+                const blob = await fetch(`${BASE_URL}/images/${deliveryCompany.imagePath}`).then(res => res.blob());
                 formDataToSend.append('imageFile', blob, deliveryCompany.imagePath);
             }
 
             console.log('formDataToSend:', formDataToSend);
 
-            const response = await fetch(`https://localhost:7092/api/DeliveryCompany/UpdateDeliveryCompany/${deliveryCompany.deliveryCompanyId}`, {
+            const response = await fetch(`${BASE_URL}/api/DeliveryCompany/UpdateDeliveryCompany/${deliveryCompany.deliveryCompanyId}`, {
                 method: 'PUT',
                 body: formDataToSend
             });
@@ -119,7 +120,7 @@ const EditDeliveryCompany = () => {
                 </div>
                 <div className="current-image">
                     <h3>Current Logo</h3>
-                    <img src={`https://localhost:7092/images/${deliveryCompany.imagePath}`} alt="Current" className='CurrentImage' />
+                    <img src={`${BASE_URL}/images/${deliveryCompany.imagePath}`} alt="Current" className='CurrentImage' />
                 </div>
                 <div className="form-group">
                     <label>Upload New Logo</label>

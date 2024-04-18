@@ -5,6 +5,7 @@ import UserNavbar from '../../LoginSignup/UserNavbar';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../../config';
 
 
 const OrderDetails = () => {
@@ -16,7 +17,7 @@ const OrderDetails = () => {
   useEffect(() => {
     const fetchOrderDetails = async () => {
       try {
-        const response = await fetch(`https://localhost:7092/api/Order/GetOrderByUniqueName/${uniqueId}`);
+        const response = await fetch(`${BASE_URL}/api/Order/GetOrderByUniqueName/${uniqueId}`);
         const data = await response.json();
         setOrder(data);
       } catch (error) {
@@ -86,7 +87,7 @@ const OrderDetails = () => {
   const confirmCancelOrder = async () => {
     try {
       console.log(`Cancelling order with ID ${order.orderId}...`);
-      const response = await fetch(`https://localhost:7092/api/Order/UpdateOrderStatusToCancelledByUser/${order.orderId}`, {
+      const response = await fetch(`${BASE_URL}/api/Order/UpdateOrderStatusToCancelledByUser/${order.orderId}`, {
         method: 'PUT'
       });
       if (response.ok) {
@@ -140,7 +141,7 @@ const OrderDetails = () => {
                   <div className='firstColumn'>
                     <img
                       className="productImage"
-                      src={`https://localhost:7092/images/${item.productImagePath}`}
+                      src={`${BASE_URL}/images/${item.productImagePath}`}
                       alt={item.productName}
                       onClick={() => navigate(`/ProductDetails/${item.uniqueName}`)}
                     />

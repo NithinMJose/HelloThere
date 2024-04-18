@@ -12,6 +12,7 @@ import {
 import AdminNavbar from '../LoginSignup/AdminNavbar';
 import Footer from '../LoginSignup/Footer';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../config';
 
 
 const EditTopic = () => {
@@ -42,7 +43,7 @@ const EditTopic = () => {
   useEffect(() => {
     const getTopicById = async () => {
       try {
-        const response = await fetch(`https://localhost:7092/api/Topic/GetTopicById?id=${state.topicId}`);
+        const response = await fetch(`${BASE_URL}/api/Topic/GetTopicById?id=${state.topicId}`);
         const data = await response.json();
         setTopic(data);
 
@@ -95,7 +96,7 @@ const EditTopic = () => {
     };
 
     try {
-      const response = await fetch('https://localhost:7092/api/Topic/UpdateTopic', {
+      const response = await fetch(`${BASE_URL}/api/Topic/UpdateTopic`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

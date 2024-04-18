@@ -7,6 +7,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import TeamSidebar from '../sidebar/TeamSidebar';
 import TeamNavbar from '../LoginSignup/Team/TeamNavbar';
 import jwt_decode from 'jwt-decode';
+import { BASE_URL } from '../../config';
 
 const EditTeamHistory = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const EditTeamHistory = () => {
     const fetchTeamHistory = async () => {
       try {
         const response = await axios.get(
-          `https://localhost:7092/api/TeamHistory/GetTeamHistoryById?id=${state.historyId}`
+          `${BASE_URL}/api/TeamHistory/GetTeamHistoryById?id=${state.historyId}`
         );
         setTeamHistory(response.data);
       } catch (error) {
@@ -41,7 +42,7 @@ const EditTeamHistory = () => {
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
-        `https://localhost:7092/api/TeamHistory/UpdateTeamHistory?id=${teamHistory.historyId}`,
+        `${BASE_URL}/api/TeamHistory/UpdateTeamHistory?id=${teamHistory.historyId}`,
         teamHistory
       );
   

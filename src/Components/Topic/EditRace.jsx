@@ -4,6 +4,7 @@ import { TextField, Button, Container, Grid, Paper, Typography } from '@mui/mate
 import AdminNavbar from '../LoginSignup/AdminNavbar';
 import Footer from '../LoginSignup/Footer';
 import axios from 'axios';
+import { BASE_URL } from '../../config';
 
 const EditRace = () => {
   const location = useLocation();
@@ -28,7 +29,7 @@ const EditRace = () => {
   useEffect(() => {
     const fetchRaceById = async () => {
       try {
-        const response = await axios.get(`https://localhost:7092/api/Race/GetRaceById?id=${state.raceId}`);
+        const response = await axios.get(`${BASE_URL}/api/Race/GetRaceById?id=${state.raceId}`);
         setRace({
           ...response.data,
           raceDate: new Date(response.data.raceDate).toISOString().split('T')[0], // Format date as yyyy-mm-dd
@@ -134,7 +135,7 @@ const EditRace = () => {
       formData.append('raceLocation', race.raceLocation);
       formData.append('imageFile', race.imageFile);
 
-      const response = await axios.put('https://localhost:7092/api/Race/UpdateRace', formData, {
+      const response = await axios.put(`${BASE_URL}/api/Race/UpdateRace`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

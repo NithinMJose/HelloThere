@@ -5,6 +5,7 @@ import jwt_decode from 'jwt-decode';
 import TeamNavbar from '../LoginSignup/Team/TeamNavbar';
 import TeamSidebar from '../sidebar/TeamSidebar';
 import Footer from '../LoginSignup/Footer';
+import { BASE_URL } from '../../config';
 
 const TeamSellingHistory = () => {
   const [sellingHistory, setSellingHistory] = useState([]);
@@ -19,7 +20,7 @@ const TeamSellingHistory = () => {
 
   const fetchSellingHistory = async () => {
     try {
-      const response = await axios.get(`https://localhost:7092/api/SoldItem/GetSoldItemHistoryByTeam/${teamId}`);
+      const response = await axios.get(`${BASE_URL}/api/SoldItem/GetSoldItemHistoryByTeam/${teamId}`);
       setSellingHistory(response.data);
     } catch (error) {
       console.error('Error fetching selling history:', error);

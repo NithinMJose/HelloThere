@@ -4,6 +4,7 @@ import { TextField, Button, Container, Grid, Paper, Typography } from '@mui/mate
 import AdminNavbar from '../LoginSignup/AdminNavbar';
 import Footer from '../LoginSignup/Footer';
 import axios from 'axios';
+import { BASE_URL } from '../../config';
 
 const EditCorner = () => {
   const location = useLocation();
@@ -19,7 +20,7 @@ const EditCorner = () => {
   useEffect(() => {
     const fetchCornerById = async () => {
       try {
-        const response = await axios.get(`https://localhost:7092/api/Corner/GetCornerById?id=${state.cornerId}`);
+        const response = await axios.get(`${BASE_URL}/api/Corner/GetCornerById?id=${state.cornerId}`);
         setCorner(response.data);
       } catch (error) {
         console.error('Error fetching corner:', error);
@@ -31,7 +32,7 @@ const EditCorner = () => {
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.put('https://localhost:7092/api/Corner/UpdateCorner', {
+      const response = await axios.put(`${BASE_URL}/api/Corner/UpdateCorner`, {
         cornerId: corner.cornerId,
         cornerNumber: corner.cornerNumber,
         cornerCapacity: corner.cornerCapacity,

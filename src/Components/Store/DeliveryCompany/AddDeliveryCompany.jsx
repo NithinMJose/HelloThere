@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Button, TextField, Typography, Container, InputAdornment } from '@mui/material';
 import AdminNavbar from '../../LoginSignup/AdminNavbar';
 import Footer from '../../LoginSignup/Footer';
+import { BASE_URL } from '../../../config';
 
 const AddDeliveryCompany = () => {
     const [email, setEmail] = useState('');
@@ -100,7 +101,7 @@ const AddDeliveryCompany = () => {
                     console.log(pair[0], pair[1]);
                 }
 
-                const response = await fetch('https://localhost:7092/api/DeliveryCompany/CreateDeliveryCompany', {
+                const response = await fetch(`${BASE_URL}/api/DeliveryCompany/CreateDeliveryCompany`, {
                     method: 'POST',
                     body: formData,
                 });

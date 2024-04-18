@@ -7,6 +7,7 @@ import axios from 'axios';
 import './ProductCategoryList.css'; // Make sure to include your ProductCategoryList.css file
 import Footer from '../LoginSignup/Footer';
 import jwt_decode from 'jwt-decode';
+import { BASE_URL } from '../../config';
 
 const ProductCategoryList = () => {
   const navigate = useNavigate();
@@ -14,53 +15,45 @@ const ProductCategoryList = () => {
   const token = localStorage.getItem('jwtToken');
 
   useEffect(() => {
-    const token = localStorage.getItem('jwtToken');
+    const fetchProductCategories = async () => {
+      try {
+        const tokenPayload = jwt_decode(token);
+        const roleId = tokenPayload['RoleId'];
 
-    if (!token) {
-      toast.error('You have to log in as Admin to access the page');
-      navigate('/');
-      return;
-    }
+        if (roleId !== 'Admin') {
+          toast.error('You have to be logged in as Admin to access the page');
+          navigate('/');
+          return;
+        }
 
-    try {
-      const tokenPayload = jwt_decode(token);
-      const roleId = tokenPayload['RoleId'];
-
-      if (roleId !== 'Admin') {
-        toast.error('You have to be logged in as Admin to access the page');
-        navigate('/');
-        return;
-      }
-
-      axios
-        .get(`https://localhost:7092/api/ProductCategory/GetProductCategories`, {
+        const response = await axios.get(`${BASE_URL}/api/ProductCategory/GetProductCategories`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        })
-        .then((response) => {
-          setProductCategories(response.data);
-        })
-        .catch((error) => {
-          console.error('Error fetching product categories:', error);
-          if (error.response && error.response.status === 401) {
-            toast.error('Unauthorized access. Please log in again.');
-            // You might want to redirect to the login page here
-            navigate('/');
-          } else {
-            toast.error('An error occurred while fetching product categories');
-          }
         });
-    } catch (error) {
-      console.error('Error decoding token:', error);
-      toast.error('An error occurred while decoding the token');
-      navigate('/Home');
+
+        setProductCategories(response.data);
+      } catch (error) {
+        console.error('Error fetching product categories:', error);
+        if (error.response && error.response.status === 401) {
+          toast.error('Unauthorized access. Please log in again.');
+          navigate('/');
+        } else {
+          toast.error('An error occurred while fetching product categories');
+        }
+      }
+    };
+
+    if (token) {
+      fetchProductCategories();
+    } else {
+      toast.error('You have to log in as Admin to access the page');
+      navigate('/');
     }
-  }, [navigate]);
+  }, [navigate, token]);
 
   const handleManageProductCategory = (productCategoryId) => {
-    // Redirect to the UpdateProductCategory page with the specific productCategoryId
-    navigate(`/UpdateProductCategory`, { replace: true, state: { productCategoryId } });
+    navigate(`/UpdateProductCategory/${productCategoryId}`);
   };
 
   const renderProductCategories = () => {
@@ -87,7 +80,7 @@ const ProductCategoryList = () => {
                 <TableCell>
                   {category.imagePath ? (
                     <img
-                      src={`https://localhost:7092/images/${category.imagePath}`}
+                      src={category.imagePath}
                       alt={`Image for ${category.pCategoryName}`}
                       className="category-image"
                       style={{ maxWidth: '100%', maxHeight: '100%', width: '150px', height: '150px' }}

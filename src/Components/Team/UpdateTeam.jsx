@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode'; // Import jwt-decode library
+import { BASE_URL } from '../../config';
 
 const UpdateTeam = () => {
   const [teamData, setTeamData] = useState({
@@ -27,7 +28,7 @@ const UpdateTeam = () => {
     const teamId = decodedToken.teamId;
 
     // Use the teamId to fetch team data
-    axios.get(`https://localhost:7092/api/Team/GetTeamById?id=${teamId}`)
+    axios.get(`${BASE_URL}/api/Team/GetTeamById?id=${teamId}`)
       .then(response => {
         setTeamData(response.data);
       })
@@ -52,7 +53,7 @@ const UpdateTeam = () => {
     // Extract TeamId from the decoded token payload
     const teamId = decodedToken.teamId;
 
-    axios.put(`https://localhost:7092/api/Team/UpdateTeam?id=${teamId}`, teamData)
+    axios.put(`${BASE_URL}/api/Team/UpdateTeam?id=${teamId}`, teamData)
       .then(response => {
         console.log('Team updated successfully:', response);
         // Redirect to team list page after successful update

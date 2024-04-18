@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Typography, Paper, CircularProgress, Grid, Card, CardContent, CardMedia } from '@mui/material';
 import { styled } from '@mui/system';
+import { BASE_URL } from '../../config';
 
 import Option1Image from '../Assets/a.jpg';
 import Option2Image from '../Assets/a.jpg';
@@ -32,9 +33,9 @@ const UserVoteResult = () => {
       // Simulating API calls with setTimeout for demonstration purposes
       const fetchData = async () => {
         try {
-          const pollResponse = await fetch(`https://localhost:7092/api/Poll/GetPollById?id=${state.pollId}`);
-          const userResponse = await fetch(`https://localhost:7092/api/User/GetUserDetailsFromUserId?userId=${state.userId}`);
-          const votesResponse = await fetch(`https://localhost:7092/api/Vote/GetVotesByPoll?pollId=${state.pollId}`);
+          const pollResponse = await fetch(`${BASE_URL}/api/Poll/GetPollById?id=${state.pollId}`);
+          const userResponse = await fetch(`${BASE_URL}/api/User/GetUserDetailsFromUserId?userId=${state.userId}`);
+          const votesResponse = await fetch(`${BASE_URL}/api/Vote/GetVotesByPoll?pollId=${state.pollId}`);
 
           if (pollResponse.ok && userResponse.ok && votesResponse.ok) {
             const pollData = await pollResponse.json();

@@ -33,7 +33,6 @@ function AdminNavbar() {
       <nav className="modern-navbar">
         <div className="navbar-container">
           <div className="navbar-brand">
-            <img src="./img/logo.png" alt="Formula 1 Fan Hub Logo" className="logo" />
             <h1 className="brand-name">Formula 1 Fan Hub</h1>
           </div>
           <ul className="navbar-links">

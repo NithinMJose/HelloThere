@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../Assets/a.jpg";
 import axios from "axios";
+import { BASE_URL } from "../../config";
 
 function TBConfirm2() {
 
@@ -30,7 +31,7 @@ async function displayRazorpay() {
 
   // creating a new order
   console.log("starting payment");
-  const result = await axios.post("http://localhost:7092/api/TicketBooking/BookTickets", { amount: 50000, currency: "INR"});
+    const result = await axios.post(`${BASE_URL}/api/TicketBooking/BookTickets`, { amount: 50000, currency: "INR" });
   console.log("result");
   console.log(result);
 
@@ -58,7 +59,7 @@ async function displayRazorpay() {
               razorpaySignature: response.razorpay_signature,
           };
 
-          const result = await axios.post("http://localhost:7092/payment/success", data);
+          const result = await axios.post(`${BASE_URL}/payment/success`, data);
 
           alert(result.data.msg);
       },

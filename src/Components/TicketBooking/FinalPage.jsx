@@ -12,6 +12,7 @@ import {
   ThemeProvider,
   createTheme,
 } from '@mui/material';
+import { BASE_URL } from '../../config';
 
 const theme = createTheme({
   palette: {
@@ -36,7 +37,7 @@ const FinalPage = () => {
       console.log('Trying to save data to the database...');
       console.log('Received Data:', receivedData);
   
-      const response1 = await fetch('https://localhost:7092/api/Corner/GetSeasonIdAndRaceIdByCornerId?cornerId=' + receivedData.CornerId);
+      const response1 = await fetch(`${BASE_URL}/api/Corner/GetSeasonIdAndRaceIdByCornerId?cornerId=` + receivedData.CornerId);
       if (!response1.ok) {
         throw new Error('Failed to fetch season and race data');
       }
@@ -44,7 +45,7 @@ const FinalPage = () => {
       const data = await response1.json();
       console.log('Fetched SeasonId and RaceId:', data);
   
-      const response = await fetch('https://localhost:7092/api/TicketBooking/TBDBSave', {
+      const response = await fetch(`${BASE_URL}/api/TicketBooking/TBDBSave`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

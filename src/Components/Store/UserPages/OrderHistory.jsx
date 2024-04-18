@@ -5,6 +5,7 @@ import './OrderHistory.css';
 import Footer from '../../LoginSignup/Footer';
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../../config';
 
 
 const OrderHistory = () => {
@@ -22,7 +23,7 @@ const OrderHistory = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch(`https://localhost:7092/api/Order/GetFullOrdersByUserId/${userId}`);
+        const response = await fetch(`${BASE_URL}/api/Order/GetFullOrdersByUserId/${userId}`);
         const data = await response.json();
         data.sort((a, b) => sortBy === 'date' ? new Date(b.orderDate) - new Date(a.orderDate) : b.orderTotalAmount - a.orderTotalAmount);
         setOrders(data);
@@ -183,7 +184,7 @@ const OrderHistory = () => {
                         <div className="productDetails" key={index}>
                           <div className="product-content">
                             <div className="product-image-container">
-                              <img src={`https://localhost:7092/images/${item.productImagePath}`} alt="Product" className="product-image" />
+                              <img src={`${BASE_URL}/images/${item.productImagePath}`} alt="Product" className="product-image" />
                             </div>
                             <div className="product-info-container">
                               {/* Additional product info can be displayed here if needed */}

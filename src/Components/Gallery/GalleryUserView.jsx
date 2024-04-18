@@ -3,6 +3,7 @@ import { Container, Typography, Card, CardContent, CardMedia, styled, Dialog, Di
 import CloseIcon from '@mui/icons-material/Close';
 import UserNavbar from '../LoginSignup/UserNavbar';
 import Footer from '../LoginSignup/Footer';
+import { BASE_URL } from '../../config';
 
 const StyledContainer = styled(Container)`
   margin-top: 20px;
@@ -34,7 +35,7 @@ const GalleryUserView = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://localhost:7092/api/Gallery/GetAllImages');
+        const response = await fetch(`${BASE_URL}/api/Gallery/GetAllImages`);
         const data = await response.json();
         setGalleryList(data);
       } catch (error) {
@@ -70,7 +71,7 @@ const GalleryUserView = () => {
                 component="img"
                 alt={image.caption}
                 height="200" // Set a fixed height for all images
-                image={`https://localhost:7092/images/${image.imageUrl}`}
+                image={`${BASE_URL}/images/${image.imageUrl}`}
                 onClick={() => handleImageClick(image)}
               />
               <CardContent>
@@ -97,7 +98,7 @@ const GalleryUserView = () => {
           </IconButton>
           {selectedImage && (
             <img
-              src={`https://localhost:7092/images/${selectedImage.imageUrl}`}
+                src={`${BASE_URL}/images/${selectedImage.imageUrl}`}
               alt={selectedImage.caption}
               style={{ width: 'auto', height: '100%' }}
             />

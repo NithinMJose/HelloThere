@@ -3,6 +3,7 @@ import './UserSelectCategory.css';
 import UserNavbar from '../../LoginSignup/UserNavbar';
 import { Link } from 'react-router-dom';
 import Footer from '../../LoginSignup/Footer';
+import { BASE_URL } from '../../../config';
 
 const UserSelectCategory = () => {
   const [categories, setCategories] = useState([]);
@@ -10,7 +11,7 @@ const UserSelectCategory = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://localhost:7092/api/ProductCategory/GetProductCategories');
+        const response = await fetch(`${BASE_URL}/api/ProductCategory/GetProductCategories`);
         const data = await response.json();
         setCategories(data);
       } catch (error) {
@@ -45,7 +46,7 @@ const UserSelectCategory = () => {
             <Link to={`/UserProducts/${category.uniqueName}`}>
               <div className="category-image">
                 <img
-                  src={`https://localhost:7092/images/${category.imagePath}`}
+                  src={`${BASE_URL}/images/${category.imagePath}`}
                   alt={`${category.pCategoryName}'s Image`}
                   className="category-image"
                 />

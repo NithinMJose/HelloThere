@@ -7,6 +7,7 @@ import axios from 'axios';
 import './PollList.css'; // Make sure to include your PollList.css file
 import Footer from '../LoginSignup/Footer';
 import jwt_decode from 'jwt-decode';
+import { BASE_URL } from '../../config';
 
 const PollList = () => {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const PollList = () => {
       }
 
       axios
-        .get(`https://localhost:7092/api/Poll/GetAllPolls`, {
+        .get(`${BASE_URL}/api/Poll/GetAllPolls`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import TeamSidebar from '../sidebar/TeamSidebar';
 import TeamNavbar from '../LoginSignup/Team/TeamNavbar';
 import jwt_decode from 'jwt-decode';
+import { BASE_URL } from '../../config';
 
 
 
@@ -24,7 +25,7 @@ const AddTeamHistory = () => {
       // Include teamId in the data object
       data.teamId = teamId;
 
-      const response = await fetch('https://localhost:7092/api/TeamHistory/CreateTeamHistory', {
+      const response = await fetch(`${BASE_URL}/api/TeamHistory/CreateTeamHistory`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

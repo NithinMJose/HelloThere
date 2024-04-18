@@ -14,6 +14,7 @@ import Footer from '../LoginSignup/Footer';
 import { useNavigate } from 'react-router-dom';
 import TeamSidebar from '../sidebar/TeamSidebar';
 import TeamNavbar from '../LoginSignup/Team/TeamNavbar';
+import { BASE_URL } from '../../config';
 
 
 const EditTopicTeam = () => {
@@ -44,7 +45,7 @@ const EditTopicTeam = () => {
   useEffect(() => {
     const getTopicById = async () => {
       try {
-        const response = await fetch(`https://localhost:7092/api/Topic/GetTopicById?id=${state.topicId}`);
+        const response = await fetch(`${BASE_URL}/api/Topic/GetTopicById?id=${state.topicId}`);
         const data = await response.json();
         setTopic(data);
 
@@ -97,7 +98,7 @@ const EditTopicTeam = () => {
     };
 
     try {
-      const response = await fetch('https://localhost:7092/api/Topic/UpdateTopic', {
+      const response = await fetch(`${BASE_URL}/api/Topic/UpdateTopic`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

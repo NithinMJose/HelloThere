@@ -8,6 +8,7 @@ import Footer from '../LoginSignup/Footer';
 import jwt_decode from 'jwt-decode';
 import TeamNavbar from '../LoginSignup/Team/TeamNavbar';
 import TeamSidebar from '../sidebar/TeamSidebar';
+import { BASE_URL } from '../../config';
 
 const AddProductTeam = () => {
   const [productName, setProductName] = useState('');
@@ -48,7 +49,7 @@ const AddProductTeam = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const categoriesResponse = await fetch('https://localhost:7092/api/ProductCategory/GetAllProductCategories');
+        const categoriesResponse = await fetch(`${BASE_URL}/api/ProductCategory/GetAllProductCategories`);
         const categoriesData = await categoriesResponse.json();
         setCategories(categoriesData);
       } catch (error) {
@@ -233,7 +234,7 @@ const AddProductTeam = () => {
           console.log(pair[0] + ', ' + pair[1]);
         }
   
-        const createProductResponse = await fetch('https://localhost:7092/api/Product/CreateProduct', {
+        const createProductResponse = await fetch(`${BASE_URL}/api/Product/CreateProduct`, {
           method: 'POST',
           body: formData,
         });

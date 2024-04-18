@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Typography, Button } from '@mui/material';
+import { BASE_URL } from '../../config';
 
 const AttendanceRegister = () => {
   const [detectedFaceName, setDetectedFaceName] = useState('');
@@ -17,7 +18,7 @@ const AttendanceRegister = () => {
         console.error('Error fetching detected face name:', error);
       });
 
-    fetch('https://localhost:7092/api/Employee/GetAllEmployeeIds')
+    fetch(`${BASE_URL}/api/Employee/GetAllEmployeeIds`)
       .then(response => response.json())
       .then(data => {
         setAllEmployeeIds(data);
@@ -50,7 +51,7 @@ const AttendanceRegister = () => {
 
   const markAttendance = () => {
     const requestBody = employeeId;
-    fetch('https://localhost:7092/api/AttendanceRegister/EmployeeEntry', {
+    fetch(`${BASE_URL}/api/AttendanceRegister/EmployeeEntry`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -74,7 +75,7 @@ const AttendanceRegister = () => {
       employeeId: employeeId,
       employeeName: detectedFaceName,
     };
-    fetch('https://localhost:7092/api/Employee/CreateEmployee', {
+    fetch(`${BASE_URL}/api/Employee/CreateEmployee`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -96,7 +97,7 @@ const AttendanceRegister = () => {
 
   const markLeave = () => {
     const requestBody = employeeId;
-    fetch('https://localhost:7092/api/AttendanceRegister/EmployeeLeave', {
+    fetch(`${BASE_URL}/api/AttendanceRegister/EmployeeLeave`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

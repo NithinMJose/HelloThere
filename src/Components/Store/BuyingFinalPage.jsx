@@ -5,6 +5,7 @@ import Footer from '../LoginSignup/Footer';
 import axios from 'axios';
 import { ThemeProvider, Container, Paper, Typography } from '@mui/material';
 import { Toast } from 'bootstrap';
+import { BASE_URL } from '../../config';
 
 const BuyingFinalPage = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const BuyingFinalPage = () => {
   console.log('Total Amount:', totalAmount);
   console.log('DDDDDDDDDDDDDDDDDDDDD:', deliveryAddress);
 
-  axios.get(`https://localhost:7092/api/User/GetUserDetailsFromUserId?userId=${receivedData.userId}`)
+  axios.get(`${BASE_URL}/api/User/GetUserDetailsFromUserId?userId=${receivedData.userId}`)
     .then((response) => {
       console.log('User Details:', response.data);
       const userDetails = response.data;
@@ -92,13 +93,13 @@ const BuyingFinalPage = () => {
 
       if (flag === 0) {
         axios
-          .post('https://localhost:7092/api/Order/AddNewOrder', requestBody)
+          .post(`${BASE_URL}/api/Order/AddNewOrder`, requestBody)
           .then((response) => {
             console.log('Order successfully created:', flag);
             flag = 1;
-            // Delete the cart items from the database using the endpoint https://localhost:7092/api/CartItem/RemoveUserCartById/3
+            // Delete the cart items from the database using the endpoint `${BASE_URL}/api/CartItem/RemoveUserCartById/3
             axios
-              .delete(`https://localhost:7092/api/CartItem/RemoveUserCartById/${receivedData.userId}`)
+              .delete(`${BASE_URL}/api/CartItem/RemoveUserCartById/${receivedData.userId}`)
               .then((response) => {
                 console.log('Cart Items Deleted:', response);
               })

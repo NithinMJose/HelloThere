@@ -19,6 +19,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from '../LoginSignup/Footer';
 import UserNavbar from '../LoginSignup/UserNavbar';
+import { BASE_URL } from '../../config';
 
 const TopicComment = () => {
   const token = localStorage.getItem('jwtToken');
@@ -39,7 +40,7 @@ const TopicComment = () => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await fetch(`https://localhost:7092/api/Comment/TopicComments?topicId=${state?.topicId}`);
+        const response = await fetch(`${BASE_URL}/api/Comment/TopicComments?topicId=${state?.topicId}`);
         const data = await response.json();
         setComments(data);
         fetchUserDetails(data);
@@ -54,7 +55,7 @@ const TopicComment = () => {
 
       for (const userId of uniqueUserIds) {
         try {
-          const userResponse = await fetch(`https://localhost:7092/api/User/GetUserDetailsFromUserId?userId=${userId}`);
+          const userResponse = await fetch(`${BASE_URL}/api/User/GetUserDetailsFromUserId?userId=${userId}`);
           const userData = await userResponse.json();
           setUserDetails((prevDetails) => ({ ...prevDetails, [userId]: userData }));
         } catch (error) {
@@ -92,7 +93,7 @@ const TopicComment = () => {
 
   const handleSaveComment = async () => {
     try {
-      const response = await fetch('https://localhost:7092/api/Comment/InsertComment', {
+      const response = await fetch(`${BASE_URL}/api/Comment/InsertComment`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -127,7 +128,7 @@ const TopicComment = () => {
 
   const handleDeleteComment = async (commentId) => {
     try {
-      const response = await fetch('https://localhost:7092/api/Comment/DeleteCommentById', {
+      const response = await fetch(`${BASE_URL}/api/Comment/DeleteCommentById`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

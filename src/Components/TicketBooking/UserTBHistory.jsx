@@ -20,6 +20,7 @@ import UserNavbar from '../LoginSignup/UserNavbar';
 import Footer from '../LoginSignup/Footer';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
+import { BASE_URL } from '../../config';
 
 const UserTBHistory = () => {
   const [ticketBookingHistory, setTicketBookingHistory] = useState([]);
@@ -27,6 +28,7 @@ const UserTBHistory = () => {
   const [detailsDialogOpen, setDetailsDialogOpen] = useState(false);
   const token = localStorage.getItem('jwtToken');
   const [userIdDecode, setUserId] = useState('');
+
 
   useEffect(() => {
     if (token) {
@@ -39,14 +41,14 @@ const UserTBHistory = () => {
     const fetchTicketBookingHistory = async () => {
       try {
         const decodedToken = jwt_decode(token);
-        const response = await axios.get(`https://localhost:7092/api/TicketBooking/GetTicketBookingHistoryByUserId/${decodedToken.userId}`);
+        const response = await axios.get(`${BASE_URL}/api/TicketBooking/GetTicketBookingHistoryByUserId/${decodedToken.userId}`);
         const enhancedHistory = await Promise.all(
           response.data.map(async (booking) => {
             try {
-              const seasonResponse = await axios.get(`https://localhost:7092/api/Season/GetSeasonById?id=${booking.seasonId}`);
-              const raceResponse = await axios.get(`https://localhost:7092/api/Race/GetRaceById?id=${booking.raceId}`);
-              const cornerResponse = await axios.get(`https://localhost:7092/api/Corner/GetCornerById?id=${booking.cornerId}`);
-              const categoryResponse = await axios.get(`https://localhost:7092/api/TicketCategory/GetTicketCategoryById?id=${booking.ticketCategoryId}`);
+              const seasonResponse = await axios.get(`${BASE_URL}/api/Season/GetSeasonById?id=${booking.seasonId}`);
+              const raceResponse = await axios.get(`${BASE_URL}/api/Race/GetRaceById?id=${booking.raceId}`);
+              const cornerResponse = await axios.get(`${BASE_URL}/api/Corner/GetCornerById?id=${booking.cornerId}`);
+              const categoryResponse = await axios.get(`${BASE_URL}/api/TicketCategory/GetTicketCategoryById?id=${booking.ticketCategoryId}`);
 
               return {
                 ...booking,

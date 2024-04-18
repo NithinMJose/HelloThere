@@ -7,6 +7,7 @@ import jwt_decode from 'jwt-decode';
 import { Modal, Button } from 'react-bootstrap';
 import DeliveryCompanyNavbar from './DeliveryCompanyNavbar';
 import Footer from '../../LoginSignup/Footer';
+import { BASE_URL } from '../../../config';
 
 const ListShippingOrders = () => {
     const [orders, setOrders] = useState([]);
@@ -28,7 +29,7 @@ const ListShippingOrders = () => {
 
         const fetchOrders = async () => {
             try {
-                const response = await axios.get(`https://localhost:7092/api/Order/GetShippingOrderDetailsForDeliveryCompany/${deliveryCompanyId}`);
+                const response = await axios.get(`${BASE_URL}/api/Order/GetShippingOrderDetailsForDeliveryCompany/${deliveryCompanyId}`);
                 setOrders(response.data);
             } catch (error) {
                 console.error("Failed to fetch orders", error);
@@ -64,11 +65,11 @@ const ListShippingOrders = () => {
     const handleConfirmAction = async () => {
         try {
             if (modalTitle === 'Delivered') {
-                await axios.put(`https://localhost:7092/api/Order/UpdateOrderStatusToDelivered/${currentOrderId}`);
+                await axios.put(`${BASE_URL}/api/Order/UpdateOrderStatusToDelivered/${currentOrderId}`);
             } else if (modalTitle === 'Wrong Address') {
-                await axios.put(`https://localhost:7092/api/Order/UpdateOrderStatusToWrongAddress/${currentOrderId}`);
+                await axios.put(`${BASE_URL}/api/Order/UpdateOrderStatusToWrongAddress/${currentOrderId}`);
             } else if (modalTitle === 'Returned') {
-                await axios.put(`https://localhost:7092/api/Order/UpdateOrderStatusToReturned/${currentOrderId}`);
+                await axios.put(`${BASE_URL}/api/Order/UpdateOrderStatusToReturned/${currentOrderId}`);
             }
             setOrders(orders.filter(order => order.orderId !== currentOrderId));
             setShowModal(false);

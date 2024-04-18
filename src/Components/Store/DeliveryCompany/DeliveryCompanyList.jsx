@@ -3,6 +3,7 @@ import './DeliveryCompanyList.css';
 import AdminNavbar from '../../LoginSignup/AdminNavbar';
 import Footer from '../../LoginSignup/Footer';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../../config';
 
 const DeliveryCompanyList = () => {
     const [deliveryCompanies, setDeliveryCompanies] = useState([]);
@@ -11,7 +12,7 @@ const DeliveryCompanyList = () => {
     useEffect(() => {
         const fetchDeliveryCompanies = async () => {
             try {
-                const response = await fetch('https://localhost:7092/api/DeliveryCompany/GetDeliveryCompanies');
+                const response = await fetch(`${BASE_URL}/api/DeliveryCompany/GetDeliveryCompanies`);
                 if (response.ok) {
                     const data = await response.json();
                     setDeliveryCompanies(data);
@@ -44,7 +45,7 @@ const DeliveryCompanyList = () => {
                 <ul className="company-list">
                     {deliveryCompanies.map((company) => (
                         <li key={company.deliveryCompanyId} className="company-card">
-                            <img src={`https://localhost:7092/images/${company.imagePath}`} alt={company.companyName} />
+                            <img src={`${BASE_URL}/images/${company.imagePath}`} alt={company.companyName} />
                             <div className="company-details">
                                 <h3>{company.companyName}</h3>
                                 <p><strong>Email:</strong> {company.email}</p>

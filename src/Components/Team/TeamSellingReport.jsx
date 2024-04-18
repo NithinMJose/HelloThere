@@ -9,6 +9,7 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable'; // Ensure you have jspdf-autotable installed
 import './TeamSellingReport.css'; // Make sure the path to the CSS file is correct
 import { margin } from '@mui/system';
+import { BASE_URL } from '../../config';
 
 const TeamSellingReport = () => {
   const [startDate, setStartDate] = useState('');
@@ -61,7 +62,7 @@ const TeamSellingReport = () => {
 
   const generateReport = async () => {
     try {
-      const response = await axios.get(`https://localhost:7092/api/SoldItem/GetSoldItemHistoryByTeam/${teamId}`);
+      const response = await axios.get(`${BASE_URL}/api/SoldItem/GetSoldItemHistoryByTeam/${teamId}`);
       const filteredItems = response.data.filter(item => {
         const soldDate = new Date(item.soldDate);
         return soldDate >= new Date(startDate) && soldDate <= new Date(endDate);

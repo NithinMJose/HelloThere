@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Typography } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
 import './AttendanceRegisterEntranceCamera.css';
+import { BASE_URL } from '../../config';
 
 const AttendanceRegisterEntranceCamera = () => {
   const [detectedFaceName, setDetectedFaceName] = useState('PROCESSING');
@@ -17,7 +18,7 @@ const AttendanceRegisterEntranceCamera = () => {
   }, []);
 
   const fetchEmployeeIds = () => {
-    fetch('https://localhost:7092/api/Employee/GetAllEmployeeIds')
+    fetch(`${BASE_URL}/api/Employee/GetAllEmployeeIds`)
       .then(response => response.json())
       .then(data => {
         setEmployeeIds(data);
@@ -72,7 +73,7 @@ const AttendanceRegisterEntranceCamera = () => {
       console.log("Creating Employee with ID: ", employeeId);
       console.log("Creating Employee with Name: ", employeeName);
 
-      fetch('https://localhost:7092/api/Employee/CreateEmployee', {
+      fetch(`${BASE_URL}/api/Employee/CreateEmployee`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -101,7 +102,7 @@ const AttendanceRegisterEntranceCamera = () => {
       return;
     }
     else {
-      fetch('https://localhost:7092/api/AttendanceRegister/EmployeeEntry', {
+      fetch(`${BASE_URL}/api/AttendanceRegister/EmployeeEntry`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

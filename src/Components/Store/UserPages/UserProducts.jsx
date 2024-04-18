@@ -4,6 +4,7 @@ import UserNavbars from '../../LoginSignup/UserNavbar';
 import './UserProducts.css';
 import jwt_decode from 'jwt-decode';
 import Footer from '../../LoginSignup/Footer';
+import { BASE_URL } from '../../../config';
 
 const UserProducts = () => {
   const { categoryId } = useParams();
@@ -25,7 +26,7 @@ const UserProducts = () => {
 
   const addToWishlist = async (productId) => {
     try {
-      const response = await fetch('https://localhost:7092/api/Wishlist/AddToWishlist', {
+      const response = await fetch(`${BASE_URL}/api/Wishlist/AddToWishlist`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -50,7 +51,7 @@ const UserProducts = () => {
 
   const removeFromWishlist = async (productId) => {
     try {
-      const response = await fetch('https://localhost:7092/api/Wishlist/RemoveFromWishlist', {
+      const response = await fetch(`${BASE_URL}/api/Wishlist/RemoveFromWishlist`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -76,7 +77,7 @@ const UserProducts = () => {
   useEffect(() => {
     const fetchWishlist = async () => {
       try {
-        const response = await fetch(`https://localhost:7092/api/Wishlist/GetWishlistByUserId`, {
+        const response = await fetch(`${BASE_URL}/api/Wishlist/GetWishlistByUserId`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -92,9 +93,9 @@ const UserProducts = () => {
 
     const fetchProducts = async () => {
       try {
-        const resp = await fetch(`https://localhost:7092/api/ProductCategory/GetProductCategoryIdByUniqueName?uniqueName=${categoryId}`);
+        const resp = await fetch(`${BASE_URL}/api/ProductCategory/GetProductCategoryIdByUniqueName?uniqueName=${categoryId}`);
         const categoryIdResponse = await resp.json();
-        const response = await fetch(`https://localhost:7092/api/Product/GetAllProductsByCategoryId/${categoryIdResponse}`);
+        const response = await fetch(`${BASE_URL}/api/Product/GetAllProductsByCategoryId/${categoryIdResponse}`);
         const data = await response.json();
         setProducts(data);
       } catch (error) {
@@ -104,7 +105,7 @@ const UserProducts = () => {
 
     const fetchTeams = async () => {
       try {
-        const response = await fetch('https://localhost:7092/api/Team/GetTeams');
+        const response = await fetch(`${BASE_URL}/api/Team/GetTeams`);
         const data = await response.json();
         const teamData = {};
         data.forEach(team => {
@@ -224,7 +225,7 @@ const UserProducts = () => {
                     <span className="product-heart2">&#x2661;</span>
                   )}
                 </div>
-              <img src={`https://localhost:7092/images/${product.imagePath1}`} alt={product.productName} className="product-imagess" />
+                <img src={`${BASE_URL}/images/${product.imagePath1}`} alt={product.productName} className="product-imagess" />
               <p className="product-names">{product.productName}</p>
             </a>
             <p className="team-name">Team: {teams[product.teamId]}</p>

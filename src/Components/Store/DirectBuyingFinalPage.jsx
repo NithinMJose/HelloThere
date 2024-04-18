@@ -5,6 +5,7 @@ import Footer from '../LoginSignup/Footer';
 import axios from 'axios';
 import { ThemeProvider, Container, Paper, Typography } from '@mui/material';
 import { Toast } from 'bootstrap';
+import { BASE_URL } from '../../config';
 
 const DirectBuyingFinalPage = () => {
   const navigate = useNavigate();
@@ -26,8 +27,8 @@ const DirectBuyingFinalPage = () => {
   console.log('Payment Date:', paymentDate);
   console.log('Total Amount:', totalAmount);
 
-  // GetUser Details From receivedData.userId using https://localhost:7092/api/User/GetUserDetailsFromUserId?userId=2
-  axios.get(`https://localhost:7092/api/User/GetUserDetailsFromUserId?userId=${receivedData.userId}`)
+  // GetUser Details From receivedData.userId using `${BASE_URL}/api/User/GetUserDetailsFromUserId?userId=2
+  axios.get(`${BASE_URL}/api/User/GetUserDetailsFromUserId?userId=${receivedData.userId}`)
     .then((response) => {
       console.log('User Details:', response.data);
       const userDetails = response.data;
@@ -94,7 +95,7 @@ const DirectBuyingFinalPage = () => {
 
       if (flag === 0) {
         axios
-          .post('https://localhost:7092/api/Order/AddNewOrder', requestBody)
+          .post(`${BASE_URL}/api/Order/AddNewOrder`, requestBody)
           .then((response) => {
             console.log('Order successfully created:', flag);
             flag = 1;

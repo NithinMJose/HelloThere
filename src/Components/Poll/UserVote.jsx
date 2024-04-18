@@ -16,6 +16,7 @@ import Option1Image from '../Assets/a.jpg';
 import Option2Image from '../Assets/a.jpg';
 import Option3Image from '../Assets/a.jpg';
 import jwt_decode from 'jwt-decode';
+import { BASE_URL } from '../../config';
 
 const UserVote = () => {
   const location = useLocation();
@@ -26,8 +27,8 @@ const UserVote = () => {
   useEffect(() => {
     const fetchPollDetails = async () => {
       try {
-        const pollResponse = await fetch(`https://localhost:7092/api/Poll/GetPollById?id=${state.pollId}`);
-        const votesResponse = await fetch(`https://localhost:7092/api/Vote/GetVotesByPoll?pollId=${state.pollId}`);
+        const pollResponse = await fetch(`${BASE_URL}/api/Poll/GetPollById?id=${state.pollId}`);
+        const votesResponse = await fetch(`${BASE_URL}/api/Vote/GetVotesByPoll?pollId=${state.pollId}`);
   
         if (pollResponse.ok && votesResponse.ok) {
           const pollData = await pollResponse.json();
@@ -85,7 +86,7 @@ const UserVote = () => {
     };
 
     try {
-      const response = await fetch('https://localhost:7092/api/Poll/CreateVote', {
+      const response = await fetch(`${BASE_URL}/api/Poll/CreateVote`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

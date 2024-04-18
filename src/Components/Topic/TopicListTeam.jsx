@@ -7,6 +7,8 @@ import axios from 'axios';
 import Footer from '../LoginSignup/Footer';
 import TeamSidebar from '../sidebar/TeamSidebar';
 import TeamNavbar from '../LoginSignup/Team/TeamNavbar';
+import jwt_decode from 'jwt-decode';
+import { BASE_URL } from '../../config';
 
 
 const TopicListTeam = () => {
@@ -26,7 +28,7 @@ const TopicListTeam = () => {
 
     try {
       axios
-        .get(`https://localhost:7092/api/Topic/GetAllTopics`, {
+        .get(`${BASE_URL}/api/Topic/GetAllTopics`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

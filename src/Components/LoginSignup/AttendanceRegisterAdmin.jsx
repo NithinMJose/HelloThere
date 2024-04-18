@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Typography, Button } from '@mui/material';
 import './AttendanceRegisterAdmin.css';
+import { BASE_URL } from '../../config';
 
 const AttendanceRegisterAdmin = () => {
   const [detectedFaceName, setDetectedFaceName] = useState('');
@@ -49,7 +50,7 @@ const AttendanceRegisterAdmin = () => {
   };
 
   const fetchEmployees = () => {
-    fetch('https://localhost:7092/api/AttendanceRegister/GetEmployees')
+    fetch(`${BASE_URL}/api/AttendanceRegister/GetEmployees`)
       .then(response => response.json())
       .then(data => {
         setAllEmployees(data);
@@ -60,7 +61,7 @@ const AttendanceRegisterAdmin = () => {
   };
 
   const updateActiveList = () => {
-    fetch('https://localhost:7092/api/AttendanceRegister/GetActiveEmployees')
+    fetch(`${BASE_URL}/api/AttendanceRegister/GetActiveEmployees`)
       .then(response => response.json())
       .then(data => {
         setActiveEmployees(data);
@@ -91,7 +92,7 @@ const AttendanceRegisterAdmin = () => {
 
   const markAttendance = () => {
     const requestBody = stableEmployeeId;
-    fetch('https://localhost:7092/api/AttendanceRegister/EmployeeEntry', {
+    fetch(`${BASE_URL}/api/AttendanceRegister/EmployeeEntry`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -112,7 +113,7 @@ const AttendanceRegisterAdmin = () => {
 
   const markLeave = () => {
     const requestBody = stableEmployeeId;
-    fetch('https://localhost:7092/api/AttendanceRegister/EmployeeLeave', {
+    fetch(`${BASE_URL}/api/AttendanceRegister/EmployeeLeave`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -134,7 +135,7 @@ const AttendanceRegisterAdmin = () => {
   const printHelloWorld = () => {
     console.log("Hello World");
     fetchDetectedFace();
-    fetch('https://localhost:7092/api/Employee/GetAllEmployeeIds')
+    fetch(`${BASE_URL}/api/Employee/GetAllEmployeeIds`)
       .then(response => response.json())
       .then(employeeIds => {
         console.log('Employee IDs:', employeeIds);
@@ -150,7 +151,7 @@ const AttendanceRegisterAdmin = () => {
             employeeName: newEmployeeName
           };
 
-          fetch('https://localhost:7092/api/Employee/CreateEmployee', {
+          fetch(`${BASE_URL}/api/Employee/CreateEmployee`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

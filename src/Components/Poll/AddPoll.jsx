@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import AdminNavbar from '../LoginSignup/AdminNavbar';
 import Footer from '../LoginSignup/Footer';
+import { BASE_URL } from '../../config';
 
 const AddPoll = () => {
   const [question, setQuestion] = useState('');
@@ -112,7 +113,7 @@ const AddPoll = () => {
       setLoading(true);
 
       try {
-        const createPollResponse = await fetch('https://localhost:7092/api/Poll/CreatePoll', {
+        const createPollResponse = await fetch(`${BASE_URL}/api/Poll/CreatePoll`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

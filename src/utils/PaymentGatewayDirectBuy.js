@@ -1,5 +1,6 @@
 import axios from "axios";
 import logo from "../Components/Assets/a.jpg";
+import { BASE_URL } from "../config";
 
 const TicketBookingDto = { amount: 50000 };
 
@@ -14,7 +15,7 @@ export default async function displayRazorPay(totalAmount, dataToTransfer, deliv
 
     totalAmount = totalAmount * 100;
 
-    const data = await axios.post("https://localhost:7092/api/TicketBooking/BookTickets", {
+    const data = await axios.post(`${BASE_URL}/api/TicketBooking/BookTickets`, {
       TotalAmount: totalAmount,
     });
 

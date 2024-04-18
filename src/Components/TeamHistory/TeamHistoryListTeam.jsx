@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import TeamSidebar from '../sidebar/TeamSidebar';
 import TeamNavbar from '../LoginSignup/Team/TeamNavbar';
 import jwt_decode from 'jwt-decode';
+import { BASE_URL } from '../../config';
 
 const TeamHistoryListTeam = () => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const TeamHistoryListTeam = () => {
 
   useEffect(() => {
     axios
-      .get(`https://localhost:7092/api/TeamHistory/GetTeamHistoriesByTeamId?teamId=${teamId}`)
+      .get(`${BASE_URL}/api/TeamHistory/GetTeamHistoriesByTeamId?teamId=${teamId}`)
       .then((response) => {
         setTeamHistories(response.data);
       })

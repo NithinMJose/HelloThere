@@ -18,6 +18,7 @@ import {
 import TeamSidebar from '../sidebar/TeamSidebar';
 import TeamNavbar from '../LoginSignup/Team/TeamNavbar';
 import Footer from '../LoginSignup/Footer';
+import { BASE_URL } from '../../config';
 
 const UpdateProductStock = () => {
   const location = useLocation();
@@ -42,7 +43,7 @@ const UpdateProductStock = () => {
 
   useEffect(() => {
     axios
-      .get(`https://localhost:7092/api/ProductCategory/GetAllProductCategories`)
+      .get(`${BASE_URL}/api/ProductCategory/GetAllProductCategories`)
       .then((response) => {
         setCategories(response.data);
       })
@@ -53,7 +54,7 @@ const UpdateProductStock = () => {
 
   useEffect(() => {
     axios
-      .get(`https://localhost:7092/api/Product/GetProductById?id=${productId}`)
+      .get(`${BASE_URL}/api/Product/GetProductById?id=${productId}`)
       .then((response) => {
         setProductData(response.data);
       })
@@ -78,7 +79,7 @@ const UpdateProductStock = () => {
     };
 
     axios
-      .put(`https://localhost:7092/api/Product/UpdateQuantityAndActive/${productId}`, data)
+      .put(`${BASE_URL}/api/Product/UpdateQuantityAndActive/${productId}`, data)
       .then((response) => {
         toast.success('Update successful');
         console.log('Product data updated:', response.data);

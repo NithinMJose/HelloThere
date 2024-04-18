@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // Import Link and useNavigate
 import './PollListUser.css'; // Make sure to include your PollListUser.css file
 import UserNavbar from '../LoginSignup/UserNavbar';
+import { BASE_URL } from '../../config';
 
 const PollListUser = () => {
   const [pollList, setPollList] = useState([]);
@@ -10,7 +11,7 @@ const PollListUser = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://localhost:7092/api/Poll/GetAllPolls');
+        const response = await fetch(`${BASE_URL}/api/Poll/GetAllPolls`);
         const data = await response.json();
         setPollList(data);
       } catch (error) {

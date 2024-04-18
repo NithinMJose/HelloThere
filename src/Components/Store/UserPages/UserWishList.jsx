@@ -8,6 +8,7 @@ import jwt_decode from 'jwt-decode';
 import './UserWishList.css'; // Import CSS file for styling
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../../config';
 
 const UserWishList = () => {
   const [wishListItems, setWishListItems] = useState([]);
@@ -21,7 +22,7 @@ const UserWishList = () => {
   useEffect(() => {
     const fetchWishListItems = async () => {
       try {
-        const response = await fetch(`https://localhost:7092/api/Wishlist/GetWishlistByUserId`, {
+        const response = await fetch(`${BASE_URL}/api/Wishlist/GetWishlistByUserId`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -41,7 +42,7 @@ const UserWishList = () => {
   useEffect(() => {
     const fetchProductDetails = async (productId) => {
       try {
-        const response = await fetch(`https://localhost:7092/api/Product/GetProductById?id=${productId}`);
+        const response = await fetch(`${BASE_URL}/api/Product/GetProductById?id=${productId}`);
         const data = await response.json();
         setProductDetails(prevState => ({
           ...prevState,
@@ -61,7 +62,7 @@ const UserWishList = () => {
 
   const handleRemoveFromWishList = async (productId) => {
     try {
-      const response = await fetch('https://localhost:7092/api/Wishlist/RemoveFromWishlist', {
+      const response = await fetch(`${BASE_URL}/api/Wishlist/RemoveFromWishlist`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -103,7 +104,7 @@ const UserWishList = () => {
     };
     
     try {
-      const response = await fetch('https://localhost:7092/api/CartItem/MoveWishListToCart', {
+      const response = await fetch(`${BASE_URL}/api/CartItem/MoveWishListToCart`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -153,7 +154,7 @@ const UserWishList = () => {
                 <Paper elevation={3} className="wishlist-item">
                   <div className="wishlist-item-content">
                   <a href={`/ProductDetails/${productDetails[item.productId]?.uniqueName}`} className="product-link">
-  <img src={`https://localhost:7092/images/${productDetails[item.productId]?.imagePath1}`} alt={productDetails[item.productId]?.productName} className="product-image" />
+                      <img src={`${BASE_URL}/images/${productDetails[item.productId]?.imagePath1}`} alt={productDetails[item.productId]?.productName} className="product-image" />
 </a>
   
                   <Typography variant="subtitle1" className="product-name">{productDetails[item.productId]?.productName}</Typography>

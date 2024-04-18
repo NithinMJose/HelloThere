@@ -7,6 +7,7 @@ import AdminNavbar from '../LoginSignup/AdminNavbar';
 import { useNavigate } from 'react-router-dom';
 import { Button, TextField, Typography, Container } from '@mui/material';
 import AdminSidebar from '../sidebar/adminSidebar';
+import { BASE_URL } from '../../config';
 
 const AddTeam = () => {
   const [name, setName] = useState('');
@@ -53,7 +54,7 @@ const AddTeam = () => {
       setLoading(true);
 
       try {
-        const response = await fetch('https://localhost:7092/api/Team/CreateTeam', {
+        const response = await fetch(`${BASE_URL}/api/Team/CreateTeam`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

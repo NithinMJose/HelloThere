@@ -3,6 +3,7 @@ import './TopicListUser.css'; // Include your CSS file for styling
 import UserNavbar from '../LoginSignup/UserNavbar';
 import Footer from '../LoginSignup/Footer';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../config';
 
 const TopicListUser = () => {
   const [topicList, setTopicList] = useState([]);
@@ -11,7 +12,7 @@ const TopicListUser = () => {
   useEffect(() => {
     const fetchTopics = async () => {
       try {
-        const response = await fetch('https://localhost:7092/api/Topic/GetAllTopics');
+        const response = await fetch(`${BASE_URL}/api/Topic/GetAllTopics`);
         const data = await response.json();
         setTopicList(data);
       } catch (error) {

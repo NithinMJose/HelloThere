@@ -6,6 +6,7 @@ import Footer from '../LoginSignup/Footer';
 import AdminNavbar from '../LoginSignup/AdminNavbar';
 import { useNavigate, useParams } from 'react-router-dom';
 import './EditGallery.css';
+import { BASE_URL } from '../../config';
 
 const EditGallery = () => {
   const { uniqueName } = useParams();
@@ -25,7 +26,7 @@ const EditGallery = () => {
     const fetchGalleryData = async () => {
       try {
         console.log("Fetching image data for uniqueName: ", uniqueName);
-        const response = await fetch(`https://localhost:7092/api/Gallery/GetGalleryByUniqueName?uniqueName=${uniqueName}`);
+        const response = await fetch(`${BASE_URL}/api/Gallery/GetGalleryByUniqueName?uniqueName=${uniqueName}`);
         if (response.ok) {
           const data = await response.json();
           setCaption(data.caption); // Set the current caption
@@ -96,7 +97,7 @@ const EditGallery = () => {
           formData.append('imageFile', imageFile);
         }
 
-        const response = await fetch(`https://localhost:7092/api/Gallery/UpdateImage?uniqueName=${uniqueName}`, {
+        const response = await fetch(`${BASE_URL}/api/Gallery/UpdateImage?uniqueName=${uniqueName}`, {
           method: 'PUT',
           body: formData,
         });
@@ -149,7 +150,7 @@ const EditGallery = () => {
                 Old Image
               </Typography>
               <div style={{ width: '200px', height: '200px', overflow: 'hidden' }}>
-                <img src={`https://localhost:7092/images/${oldImageUrl}`} alt="Old Image" style={{ width: '100%', height: 'auto' }} />
+                <img src={`${BASE_URL}/images/${oldImageUrl}`} alt="Old Image" style={{ width: '100%', height: 'auto' }} />
               </div>
             </Grid>
             <Grid item xs={12}>

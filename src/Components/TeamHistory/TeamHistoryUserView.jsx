@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useSpring, animated } from 'react-spring';
 import Footer from '../LoginSignup/Footer';
 import UserNavbar from '../LoginSignup/UserNavbar';
+import { BASE_URL } from '../../config';
 
 const TeamHistoryUserView = () => {
   const { id } = useParams();
@@ -13,7 +14,7 @@ const TeamHistoryUserView = () => {
 
   useEffect(() => {
     axios
-      .get(`https://localhost:7092/api/TeamHistory/GetAllTeamHistories`)
+      .get(`${BASE_URL}/api/TeamHistory/GetAllTeamHistories`)
       .then((response) => {
         setTeamHistories(response.data);
         console.log('Team Histories:', response.data); // Log the data received from the endpoint

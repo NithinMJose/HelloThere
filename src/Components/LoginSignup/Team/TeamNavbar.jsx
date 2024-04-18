@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios'; // Import Axios for making HTTP requests
 import './TeamNavbar.css';
+import { BASE_URL } from '../../../config';
 
 function TeamNavbar() {
   const navigate = useNavigate();
@@ -26,11 +27,11 @@ function TeamNavbar() {
 
   const fetchTeamStatus = async (userName) => {
     try {
-      const response = await fetch(`https://localhost:7092/api/Team/GetIdByUserName?userName=${userName}`);
+      const response = await fetch(`${BASE_URL}/api/Team/GetIdByUserName?userName=${userName}`);
       const data = await response.json();
       console.log("User Id:", data.teamId);
       try {
-        const response2 = await fetch(`https://localhost:7092/api/Team/GetTeamById?id=${data.teamId}`);
+        const response2 = await fetch(`${BASE_URL}/api/Team/GetTeamById?id=${data.teamId}`);
         const data2 = await response2.json();
         console.log("User Status:", data2.status);
         setStatus(data2.status);
@@ -53,7 +54,6 @@ function TeamNavbar() {
       <nav className="modern-navbar">
         <div className="navbar-container">
           <div className="navbar-brand">
-            <img src="./img/logo.png" alt="Formula 1 Fan Hub Logo" className="logo" />
             <h1 className="brand-name">Formula 1 Fan Hub</h1>
           </div>
           <ul className="navbar-links">

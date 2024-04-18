@@ -5,6 +5,7 @@ import jwt_decode from 'jwt-decode';
 import { Modal, Button } from 'react-bootstrap';
 import DeliveryCompanyNavbar from './DeliveryCompanyNavbar';
 import Footer from '../../LoginSignup/Footer';
+import { BASE_URL } from '../../../config';
 
 const ListPendingOrders = () => {
     const [orders, setOrders] = useState([]);
@@ -24,7 +25,7 @@ const ListPendingOrders = () => {
 
         const fetchOrders = async () => {
             try {
-                const response = await axios.get(`https://localhost:7092/api/Order/GetOrderDetailsForDeliveryCompany/${deliveryCompanyId}`);
+                const response = await axios.get(`${BASE_URL}/api/Order/GetOrderDetailsForDeliveryCompany/${deliveryCompanyId}`);
                 setOrders(response.data);
             } catch (error) {
                 console.error("Failed to fetch orders", error);
@@ -43,7 +44,7 @@ const ListPendingOrders = () => {
 
     const confirmAcceptOrder = async () => {
         try {
-            await axios.put(`https://localhost:7092/api/Order/UpdateOrderStatusToInShipping/${currentOrderId}`);
+            await axios.put(`${BASE_URL}/api/Order/UpdateOrderStatusToInShipping/${currentOrderId}`);
             setOrders(orders.filter(order => order.orderId !== currentOrderId));
             setShowModal(false);
         } catch (error) {

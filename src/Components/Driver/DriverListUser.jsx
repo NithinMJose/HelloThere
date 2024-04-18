@@ -27,7 +27,7 @@ const DriverListUser = () => {
         {driverList.map((driver) => (
           <div key={driver.driverId} className="driver-item">
             <img
-              src={`https://localhost:7092/images/${driver.imagePath}`} 
+              src={`${BASE_URL}/images/${driver.imagePath}`} 
               alt={`${driver.name}'s Image`}
               className="driver-image"
             />

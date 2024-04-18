@@ -6,6 +6,7 @@ import AdminNavbar from '../LoginSignup/AdminNavbar';
 import axios from 'axios';
 import Footer from '../LoginSignup/Footer';
 import './GalleryListAdmin.css';
+import { BASE_URL } from '../../config';
 
 const StyledTableContainer = styled(TableContainer)`
   margin-top: 20px;
@@ -40,7 +41,7 @@ const GalleryListAdmin = () => {
 
   useEffect(() => {
     axios
-      .get('https://localhost:7092/api/Gallery/GetAllImages')
+      .get(`${BASE_URL}/api/Gallery/GetAllImages`)
       .then((response) => {
         const filteredData = response.data.filter(image => image.isActive === "Yes");
         setGalleryData(filteredData);
@@ -73,7 +74,7 @@ const GalleryListAdmin = () => {
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>
                   <StyledImage
-                    src={`https://localhost:7092/images/${image.imageUrl}`}
+                    src={`${BASE_URL}/images/${image.imageUrl}`}
                     alt={`Image for ${image.caption}`}
                   />
                 </TableCell>
@@ -96,7 +97,7 @@ const GalleryListAdmin = () => {
   };
 
   const handleRemoveImage = (uniqueName) => {
-    axios.delete(`https://localhost:7092/api/Gallery/DeleteImage?uniqueName=${uniqueName}`)
+    axios.delete(`${BASE_URL}/api/Gallery/DeleteImage?uniqueName=${uniqueName}`)
       .then(response => {
         console.log("Image removed successfully.");
         window.location.reload(); // Reload the page after successful removal

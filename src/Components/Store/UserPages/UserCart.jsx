@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import './UserCart.css';
 import displayRazorPay from '../../../utils/PaymentGatewayDirectBuy';
 import Footer from '../../LoginSignup/Footer';
+import { BASE_URL } from '../../../config';
 
 const UserCart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -34,7 +35,7 @@ const UserCart = () => {
 
   const fetchUserDetails = async () => {
     try {
-      const response = await fetch(`https://localhost:7092/api/User/GetUserDetailsFromUserId?userId=${userId}`);
+      const response = await fetch(`${BASE_URL}/api/User/GetUserDetailsFromUserId?userId=${userId}`);
       const data = await response.json();
       setUserDetails(data);
       console.log("User DetailsZZZZZZZZ :", data);
@@ -47,7 +48,7 @@ const UserCart = () => {
 
     const fetchCartItems = async () => {
       try {
-        const response = await fetch(`https://localhost:7092/api/CartItem/GetCartItemsByUserId/${userId}`);
+        const response = await fetch(`${BASE_URL}/api/CartItem/GetCartItemsByUserId/${userId}`);
         const data = await response.json();
         const activeItems = data.filter(item => item.status === "active");
         setCartItems(activeItems);
@@ -62,7 +63,7 @@ const UserCart = () => {
   useEffect(() => {
     const fetchProductDetails = async (productId) => {
       try {
-        const response = await fetch(`https://localhost:7092/api/Product/GetProductById?id=${productId}`);
+        const response = await fetch(`${BASE_URL}/api/Product/GetProductById?id=${productId}`);
         const data = await response.json();
         setProductDetails(prevState => ({
           ...prevState,
@@ -82,7 +83,7 @@ const UserCart = () => {
 
   const handleRemoveFromCart = async (cartItemId) => {
     try {
-      await fetch(`https://localhost:7092/api/CartItem/DeleteFromCartById`, {
+      await fetch(`${BASE_URL}/api/CartItem/DeleteFromCartById`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -92,7 +93,7 @@ const UserCart = () => {
           status: 'inactive'
         })
       });
-      const response = await fetch(`https://localhost:7092/api/CartItem/GetCartItemsByUserId/${userId}`);
+      const response = await fetch(`${BASE_URL}/api/CartItem/GetCartItemsByUserId/${userId}`);
       const data = await response.json();
       const activeItems = data.filter(item => item.status === "active");
       setCartItems(activeItems);
@@ -145,7 +146,7 @@ const UserCart = () => {
     try {
       // Convert productId into UniqueName from database
       console.log("productId :", productId);
-      const resp = await fetch(`https://localhost:7092/api/Product/GetProductById?id=${productId}`);
+      const resp = await fetch(`${BASE_URL}/api/Product/GetProductById?id=${productId}`);
       if (!resp.ok) {
         throw new Error('Failed to fetch product details');
       }
@@ -223,7 +224,7 @@ const UserCart = () => {
                     <div className="cart-item-content">
                       <div className="imageContainers">
                         <img
-                          src={`https://localhost:7092/images/${productDetails[item.productId]?.imagePath1}`}
+                          src={`${BASE_URL}/images/${productDetails[item.productId]?.imagePath1}`}
                           alt={productDetails[item.productId]?.productName}
                           className="product-image"
                           onClick={() => handleProductDetailClick(item.productId)}

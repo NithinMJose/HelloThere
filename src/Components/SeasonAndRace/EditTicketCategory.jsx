@@ -4,6 +4,7 @@ import { TextField, Button, Container, Grid, Paper, Typography } from '@mui/mate
 import AdminNavbar from '../LoginSignup/AdminNavbar';
 import Footer from '../LoginSignup/Footer';
 import axios from 'axios';
+import { BASE_URL } from '../../config';
 
 const EditTicketCategory = () => {
   const location = useLocation();
@@ -28,7 +29,7 @@ const EditTicketCategory = () => {
       try {
         console.log('Ticket Category ID received through state:', state.categoryId);
 
-        const response = await axios.get(`https://localhost:7092/api/TicketCategory/GetTicketCategoryById?id=${state.categoryId}`);
+        const response = await axios.get(`${BASE_URL}/api/TicketCategory/GetTicketCategoryById?id=${state.categoryId}`);
         const { ticketCategoryId, categoryName, description, ticketPrice, imageFile, imagePath } = response.data;
 
         setTicketCategory({
@@ -129,7 +130,7 @@ const EditTicketCategory = () => {
       formData.append('ticketPrice', ticketCategory.ticketPrice);
       formData.append('imageFile', ticketCategory.imageFile);
 
-      const response = await axios.put('https://localhost:7092/api/TicketCategory/UpdateTicketCategory', formData, {
+      const response = await axios.put(`${BASE_URL}/api/TicketCategory/UpdateTicketCategory`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

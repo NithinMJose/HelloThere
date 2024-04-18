@@ -18,6 +18,7 @@ import {
 import TeamSidebar from '../sidebar/TeamSidebar';
 import TeamNavbar from '../LoginSignup/Team/TeamNavbar';
 import Footer from '../LoginSignup/Footer';
+import { BASE_URL } from '../../config';
 
 const UpdateProductTeam = () => {
   const location = useLocation();
@@ -60,7 +61,7 @@ const UpdateProductTeam = () => {
 
   useEffect(() => {
     axios
-      .get(`https://localhost:7092/api/ProductCategory/GetAllProductCategories`)
+      .get(`${BASE_URL}/api/ProductCategory/GetAllProductCategories`)
       .then((response) => {
         setCategories(response.data);
       })
@@ -71,7 +72,7 @@ const UpdateProductTeam = () => {
 
   useEffect(() => {
     axios
-      .get(`https://localhost:7092/api/Product/GetProductById?id=${productId}`)
+      .get(`${BASE_URL}/api/Product/GetProductById?id=${productId}`)
       .then((response) => {
         setProductData(response.data);
         //      console.log("HHHHHHHHHHHHHHHHHHHHH : ", response.data);
@@ -190,7 +191,7 @@ const UpdateProductTeam = () => {
     }
 
     axios
-      .put(`https://localhost:7092/api/Product/UpdateProduct/${productId}`, formData)
+      .put(`${BASE_URL}/api/Product/UpdateProduct/${productId}`, formData)
       .then((response) => {
         toast.success('Update successful');
         navigate('/ProductListTeam');
@@ -295,7 +296,7 @@ const UpdateProductTeam = () => {
                       )}
                       {productData[`imagePath${number}`] && (
                         <img
-                          src={`https://localhost:7092/images/${productData[`imagePath${number}`]}`}
+                          src={`${BASE_URL}/images/${productData[`imagePath${number}`]}`}
                           alt={`Product Image ${number}`}
                           className="product-image"
                           style={{ width: '100px', height: '100px', objectFit: 'cover' }}

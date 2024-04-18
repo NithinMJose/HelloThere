@@ -5,6 +5,7 @@ import { Button, TextField, Typography, Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AdminNavbar from '../LoginSignup/AdminNavbar';
 import Footer from '../LoginSignup/Footer';
+import { BASE_URL } from '../../config';
 
 const AddProductCategory = () => {
   const [categoryName, setCategoryName] = useState('');
@@ -54,7 +55,7 @@ const AddProductCategory = () => {
         formData.append('PCategoryName', categoryName);
         formData.append('ImageFile', imageFile);
 
-        const createProductCategoryResponse = await fetch('https://localhost:7092/api/ProductCategory/CreateProductCategory', {
+        const createProductCategoryResponse = await fetch(`${BASE_URL}/api/ProductCategory/CreateProductCategory`, {
           method: 'POST',
           body: formData,
         });
@@ -82,6 +83,9 @@ const AddProductCategory = () => {
   return (
     <div>
       <AdminNavbar />
+      <br />
+      <br />
+      <br />
       <Container maxWidth="sm" className="outerSetup">
         <br />
         <br />

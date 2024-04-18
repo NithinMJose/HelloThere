@@ -12,6 +12,7 @@ import {
 import AdminNavbar from '../LoginSignup/AdminNavbar';
 import Footer from '../LoginSignup/Footer';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../config';
 
 const EditPoll = () => {
   const location = useLocation();
@@ -46,7 +47,7 @@ const EditPoll = () => {
 
     const getPollById = async () => {
       try {
-        const response = await fetch(`https://localhost:7092/api/Poll/GetPollById?id=${state.pollId}`);
+        const response = await fetch(`${BASE_URL}/api/Poll/GetPollById?id=${state.pollId}`);
         const data = await response.json();
         setPoll(data);
 
@@ -118,7 +119,7 @@ const EditPoll = () => {
     };
 
     try {
-      const response = await fetch('https://localhost:7092/api/Poll/UpdatePoll', {
+      const response = await fetch(`${BASE_URL}/api/Poll/UpdatePoll`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import axios from 'axios';
 import AdminNavbar from '../LoginSignup/AdminNavbar';
 import Footer from '../LoginSignup/Footer';
+import { BASE_URL } from '../../config';
 
 const RaceList = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const RaceList = () => {
 
     try {
       axios
-        .get(`https://localhost:7092/api/Race/GetAllRaces`, {
+        .get(`${BASE_URL}/api/Race/GetAllRaces`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -79,7 +80,7 @@ const RaceList = () => {
                 <TableCell>
                   {race.imagePath ? (
                     <img
-                      src={`https://localhost:7092/images/${race.imagePath}`}
+                      src={`${BASE_URL}/images/${race.imagePath}`}
                       alt={`Image for ${race.raceName}`}
                       className="race-image"
                       style={{ maxWidth: '100%', maxHeight: '100%', width: '150px', height: '150px' }}

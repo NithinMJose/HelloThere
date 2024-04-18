@@ -20,6 +20,7 @@ import jwt_decode from 'jwt-decode';
 import UserNavbar from '../LoginSignup/UserNavbar';
 import Footer from '../LoginSignup/Footer';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../config';
 
 const UserActiveTBHistory = () => {
   const [activeTicketBookingHistory, setActiveTicketBookingHistory] = useState([]);
@@ -41,14 +42,14 @@ const UserActiveTBHistory = () => {
     const fetchActiveTicketBookingHistory = async () => {
       try {
         const decodedToken = jwt_decode(token);
-        const response = await axios.get(`https://localhost:7092/api/TicketBooking/GetTicketBookingHistoryByUserId/${decodedToken.userId}`);
+        const response = await axios.get(`${BASE_URL}/api/TicketBooking/GetTicketBookingHistoryByUserId/${decodedToken.userId}`);
         const enhancedHistory = await Promise.all(
           response.data.map(async (booking) => {
             try {
-              const raceResponse = await axios.get(`https://localhost:7092/api/Race/GetRaceById?id=${booking.raceId}`);
-              const cornerResponse = await axios.get(`https://localhost:7092/api/Corner/GetCornerById?id=${booking.cornerId}`);
-              const categoryResponse = await axios.get(`https://localhost:7092/api/TicketCategory/GetTicketCategoryById?id=${booking.ticketCategoryId}`);
-              const seasonResponse = await axios.get(`https://localhost:7092/api/Season/GetSeasonById?id=${booking.seasonId}`);
+              const raceResponse = await axios.get(`${BASE_URL}/api/Race/GetRaceById?id=${booking.raceId}`);
+              const cornerResponse = await axios.get(`${BASE_URL}/api/Corner/GetCornerById?id=${booking.cornerId}`);
+              const categoryResponse = await axios.get(`${BASE_URL}/api/TicketCategory/GetTicketCategoryById?id=${booking.ticketCategoryId}`);
+              const seasonResponse = await axios.get(`${BASE_URL}/api/Season/GetSeasonById?id=${booking.seasonId}`);
               
               // Check if the raceDate is a future date
               const isFutureDate = new Date(raceResponse.data.raceDate) > new Date();
@@ -103,12 +104,12 @@ const UserActiveTBHistory = () => {
     if (booking.bookingStatus === 'Confirmed') {
       try {
         // Make an API call to cancel the booking
-        await axios.patch(`https://localhost:7092/api/TicketBooking/CancelTicketById/${booking.ticketBookingId}`);
+        await axios.patch(`${BASE_URL}/api/TicketBooking/CancelTicketById/${booking.ticketBookingId}`);
         
         // Make an API call to update the corner seats
         console.log('CorenerId :', booking.cornerId)
         console.log('seatsToIncrease', booking.seatsToIncrease)
-        await axios.put(`https://localhost:7092/api/Corner/UpdateCornerSeatByTicketCancel`, {
+        await axios.put(`${BASE_URL}/api/Corner/UpdateCornerSeatByTicketCancel`, {
           cornerId: booking.cornerId,
           seatsToIncrease: booking.numberOfTicketsBooked,
         });

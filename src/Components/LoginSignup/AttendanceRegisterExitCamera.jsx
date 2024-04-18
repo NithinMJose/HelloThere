@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Typography } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
 import './AttendanceRegisterExitCamera.css';
+import { BASE_URL } from '../../config';
 
 const AttendanceRegisterExitCamera = () => {
   const [detectedFaceName, setDetectedFaceName] = useState('PROCESSING');
@@ -17,7 +18,7 @@ const AttendanceRegisterExitCamera = () => {
   }, []);
 
   const fetchEmployeeIds = () => {
-    fetch('https://localhost:7092/api/Employee/GetAllEmployeeIds')
+    fetch(`${BASE_URL}/api/Employee/GetAllEmployeeIds`)
       .then(response => response.json())
       .then(data => {
         setEmployeeIds(data);
@@ -58,7 +59,7 @@ const AttendanceRegisterExitCamera = () => {
   const EmployeeExit = (employeeId) => {
     const requestBody = JSON.stringify(employeeId);
 
-    fetch('https://localhost:7092/api/AttendanceRegister/EmployeeLeave', {
+    fetch(`${BASE_URL}/api/AttendanceRegister/EmployeeLeave`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

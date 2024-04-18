@@ -11,6 +11,7 @@ import {
 import AdminNavbar from '../LoginSignup/AdminNavbar';
 import Footer from '../LoginSignup/Footer';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../config';
 
 const EditSeason = () => {
   const location = useLocation();
@@ -35,7 +36,7 @@ const EditSeason = () => {
   useEffect(() => {
     const getSeasonById = async () => {
       try {
-        const response = await fetch(`https://localhost:7092/api/Season/GetSeasonById?id=${state.seasonId}`);
+        const response = await fetch(`${BASE_URL}/api/Season/GetSeasonById?id=${state.seasonId}`);
         const data = await response.json();
         setSeason(data);
 
@@ -90,7 +91,7 @@ const EditSeason = () => {
     formData.append('imageFile', updatedImageFile);
 
     try {
-      const response = await fetch('https://localhost:7092/api/Season/UpdateSeason', {
+      const response = await fetch(`${BASE_URL}/api/Season/UpdateSeason`, {
         method: 'PUT',
         body: formData,
       });
